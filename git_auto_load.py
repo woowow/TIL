@@ -1,17 +1,27 @@
+import os
 import requests
 import subprocess
 from datetime import datetime, timedelta, timezone
 from dateutil import parser
 
+
 # GitLab 설정
 GITLAB_API = "https://lab.ssafy.com/api/v4"
-USERNAME = ""  # 본인 GitLab username
-PRIVATE_TOKEN = ""
+USERNAME = "yuti97"  # 본인 GitLab id
+PRIVATE_TOKEN = "TVUqzqeu6DHPiCUsawMi" # 본인 GitLab token
 
-# 시간 계산: 24시간 이내
-since = (datetime.utcnow() - timedelta(days=1)).isoformat()
+# clone 받을 경로 설정
+CLONE_DIR = "lectures\week1_3" # 경로 입력
+clone_path = CLONE_DIR if CLONE_DIR else os.getcwd() # 미입력 시 현재 터미널 경로로 clone
 
-# 프로젝트 목록 가져오기
+
+# 시간 설정 6시간 이내
+# 변경을 원할 시 timedelta() 내부값 변경, hours, minutes, seconds, days로 설정 가능
+# ex) timedelta(days=1) : 하루 이내(24시간)
+since = datetime.utcnow().replace(tzinfo=timezone.utc) - timedelta(hours=6)
+
+
+# 프로젝트 목록 불러오기
 response = requests.get(
     f"{GITLAB_API}/users/{USERNAME}/projects",
     headers={"PRIVATE-TOKEN": PRIVATE_TOKEN},
@@ -20,14 +30,15 @@ response = requests.get(
 
 projects = response.json()
 
-# 업데이트된 프로젝트 중 24시간 이내만 필터링
+
+# 불러온 프로젝트에 대해 6시간 이내 업데이트 프로젝트만 clone
 for project in projects:
     last_activity = project['last_activity_at']
-#    last_activity_dt = datetime.strptime(last_activity, "%Y-%m-%dT%H:%M:%S.%fZ")
     last_activity_dt = parser.isoparse(last_activity)
     
-    if last_activity_dt >= datetime.utcnow().replace(tzinfo=timezone.utc) - timedelta(days=1):
+    if last_activity_dt >= since:
         print(f"클론할 프로젝트: {project['name']} / 업데이트 시간: {last_activity_dt}")
         clone_url = project['http_url_to_repo']
+        target_dir = os.path.join(clone_path, project['name'])
         
-        subprocess.run(["git", "clone", clone_url])
+        subprocess.run(["git", "clone", clone_url, target_dir])
