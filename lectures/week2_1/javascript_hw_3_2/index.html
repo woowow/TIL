@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .done {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <form action="/todos/">
+    <input type="text">
+    <button>Todo</button>
+  </form>
+  <ul></ul>
+
+<script>
+  const form = document.querySelector('form')
+  const input = document.querySelector('input')
+  const ul = document.querySelector('ul')
+
+  function addTodo (event) {
+
+    event.preventDefault()
+    
+    const text = input.value
+
+    const li = document.createElement('li')
+
+    if(text === ''){
+      alert('할 일을 입력해주세요')
+    }
+    else{
+      li.textContent = text
+
+      const deleteBtn = document.createElement('button')
+      deleteBtn.textContent = '삭제'
+      deleteBtn.style.margin = '10px'
+      
+      deleteBtn.addEventListener('click', function(){
+        li.remove()
+      })
+
+      li.addEventListener('click', function(){
+        li.classList.toggle('done')
+      })
+      
+      li.appendChild(deleteBtn)
+      ul.appendChild(li)
+
+      input.value = ''
+    }
+  }
+
+  form.addEventListener('submit', addTodo)
+</script>
+</body>
+</html>

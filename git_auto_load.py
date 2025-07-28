@@ -7,18 +7,18 @@ from dateutil import parser
 
 # GitLab 설정
 GITLAB_API = "https://lab.ssafy.com/api/v4"
-USERNAME = ""  # 본인 GitLab id
-PRIVATE_TOKEN = "" # 본인 GitLab token
+USERNAME = "yuti97"  # 본인 GitLab id
+PRIVATE_TOKEN = "TVUqzqeu6DHPiCUsawMi" # 본인 GitLab token
 
 # clone 받을 경로 설정
-CLONE_DIR = "lectures\week1_3" # 경로 입력
+CLONE_DIR = "lectures\week2_1" # 경로 입력
 clone_path = CLONE_DIR if CLONE_DIR else os.getcwd() # 미입력 시 현재 터미널 경로로 clone
 
 
 # 시간 설정 6시간 이내
 # 변경을 원할 시 timedelta() 내부값 변경, hours, minutes, seconds, days로 설정 가능
 # ex) timedelta(days=1) : 하루 이내(24시간)
-since = datetime.utcnow().replace(tzinfo=timezone.utc) - timedelta(hours=6)
+since = datetime.utcnow().replace(tzinfo=timezone.utc) - timedelta(minutes=3)
 
 
 # 프로젝트 목록 불러오기
