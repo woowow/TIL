@@ -11,7 +11,7 @@ USERNAME = "yuti97"  # 본인 GitLab id
 PRIVATE_TOKEN = "TVUqzqeu6DHPiCUsawMi" # 본인 GitLab token
 
 # clone 받을 경로 설정
-CLONE_DIR = "lectures\week2_1" # 경로 입력
+CLONE_DIR = "lectures\week2_2" # 경로 입력
 clone_path = CLONE_DIR if CLONE_DIR else os.getcwd() # 미입력 시 현재 터미널 경로로 clone
 
 
