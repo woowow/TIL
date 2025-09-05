@@ -1,18 +1,28 @@
 import sys
+from collections import deque
 
-chk = True
-while chk:
-    info = list(map(int, sys.stdin.readline().split()))
+while True:
+    hist = deque(list(map(int, sys.stdin.readline().split())))
 
-    N = info[0]
-
-    if N == 0:
+    n = hist.popleft()
+    if n == 0:
         break
 
-    info.pop(0)
+    max_extent = 0
 
+    stack = []
+
+    for i, h in enumerate(hist):
+        start = i
+
+        while stack and stack[-1][1] > h:
+            idx, height = stack.pop()
+            max_extent = max(max_extent, height*(i - idx))
+            start = idx
+        stack.append((start, h))
+
+    for i, h in stack:
+        max_extent = max(max_extent, h * (n - i))
     
+    print(max_extent)
 
-'''
-히스토그램에서 가장 큰 '직사각형'의 크기
-'''
