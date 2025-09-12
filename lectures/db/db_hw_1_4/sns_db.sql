@@ -1,0 +1,25 @@
+CREATE DATABASE sns_db
+    DEFAULT CHARACTER SET = 'utf8mb4';
+
+CREATE TABLE sns_db.users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255),
+    email VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE sns_db.posts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    content TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+
+ALTER TABLE sns_db.users ADD COLUMN profile_picture VARCHAR(255);
+ALTER TABLE sns_db.users MODIFY COLUMN email VARCHAR(320);
+
+ALTER TABLE sns_db.posts ADD COLUMN title VARCHAR(255);
+ALTER TABLE sns_db.posts MODIFY COLUMN content LONGTEXT;
