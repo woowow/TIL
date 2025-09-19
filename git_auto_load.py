@@ -7,8 +7,8 @@ from dateutil import parser
 
 # GitLab 설정
 GITLAB_API = "https://lab.ssafy.com/api/v4"
-USERNAME = "yuti97"  # 본인 GitLab id
-PRIVATE_TOKEN = "TVUqzqeu6DHPiCUsawMi" # 본인 GitLab token
+USERNAME = ""  # 본인 GitLab id
+PRIVATE_TOKEN = "" # 본인 GitLab token
 
 # clone 받을 경로 설정
 CLONE_DIR = "lectures/datascience" # 경로 입력
